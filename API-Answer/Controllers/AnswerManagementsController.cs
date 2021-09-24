@@ -30,15 +30,15 @@ namespace API_Answer.Controllers
 
         // GET: api/AnswerManagements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AnswerManagement>> GetAnswerManagement(int? id)
+        public async Task<ActionResult<IEnumerable<AnswerManagement>>> GetAnswerManagement(int id, AnswerManagement x)
         {
-            var answerManagement = await _context.AnswerManagement.FindAsync(id);
+            var answerManagement = await _context.AnswerManagement.Where(x => x.qst_id == id).ToListAsync();
 
             if (answerManagement == null)
             {
                 return NotFound();
             }
-
+                
             return answerManagement;
         }
 
